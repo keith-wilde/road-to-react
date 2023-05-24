@@ -24,11 +24,17 @@ const list = [
 function App() {
     return (
         <div>
-            <h1>Hacker Stories</h1>
-            <label htmlFor="search">Search: </label>
-            <input id="search" type="text"/>
+            <h1>My Hacker Stores</h1>
+            <Search />
+            <hr/>
+            <List />
+        </div>
+    )
+}
 
-            <hr />
+function List() {
+    return (
+        <div>
 
             <ul>
                 {list.map(function (item) {
@@ -45,6 +51,17 @@ function App() {
             </ul>
         </div>
     );
+}
+
+function Search(){
+    return (
+        <div>
+
+            <label htmlFor="search">Search: </label>
+            <input id="search" type="text"/>
+
+        </div>
+    )
 }
 
 export default App
