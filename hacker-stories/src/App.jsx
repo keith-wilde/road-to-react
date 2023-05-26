@@ -21,24 +21,23 @@ const list = [
 ]
 
 
-function App() {
+const App = () => {
     return (
         <div>
             <h1>My Hacker Stores</h1>
-            <Search />
+            <Search/>
             <hr/>
-            <List />
+            <List/>
         </div>
     )
 }
 
-function List() {
+const List = () => {
     return (
-        <div>
-
-            <ul>
-                {list.map(function (item) {
-                    return <li key={item.objectID}>
+        <ul>
+            {list.map((item) => {
+                return (
+                    <li key={item.objectID}>
                         <span>
                             <a href={item.url}>{item.title} </a>
                         </span>
@@ -47,13 +46,12 @@ function List() {
                         <span>{item.num_components} </span>
                         <span>{item.points} </span>
                     </li>
-                })}
-            </ul>
-        </div>
+                );
+            })}
+        </ul>
     );
 }
-
-function Search(){
+const Search = () => {
     return (
         <div>
 
