@@ -24,27 +24,32 @@ const App = () => {
         <div>
             <h1>My Hacker Stories</h1>
 
-            <Search />
+            <Search/>
 
-            <hr />
+            <hr/>
 
-            <List list={stories} />
+            <List list={stories}/>
         </div>
     );
 };
 
 const Search = () => {
+    //    [state, state updater function] = React."react hook function"(initial state)
+    const [searchTerm, setSearchTerm] = React.useState('');
     const handleChange = (event) => {
-        // synthetic event
-        console.log(event);
         // value of target (here: input HTML element)
         console.log(event.target.value);
+        setSearchTerm(event.target.value);
     };
 
     return (
         <div>
             <label htmlFor="search">Search: </label>
-            <input id="search" type="text" onChange={handleChange} />
+            <input id="search" type="text" onChange={handleChange}/>
+
+            <p>
+                Searching For <strong>{searchTerm}</strong>
+            </p>
         </div>
     );
 };
@@ -52,7 +57,7 @@ const Search = () => {
 const List = (props) => (
     <ul>
         {props.list.map((item) => (
-            <Item key={item.objectID} item={item} />
+            <Item key={item.objectID} item={item}/>
         ))}
     </ul>
 );
