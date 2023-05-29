@@ -20,10 +20,18 @@ const App = () => {
         },
     ];
 
+    //    [state, state updater function] = React."react hook function"(initial state)
+    const [searchTerm, setSearchTerm] = React.useState('');
     const handleSearch = (event) => {
-        console.log("Handling Event: \n")
-        console.log(event);
+        setSearchTerm(event.target.value);
     }
+
+
+    const searchedStories = stories.filter(function (story) {
+        return story.title.toLowerCase().includes(searchTerm.toLowerCase())                     // TODO, improve this if not done in tutorial
+            || story.url.toLowerCase().includes(searchTerm.toLowerCase())
+            || story.author.toLowerCase().includes(searchTerm.toLowerCase());
+    })
 
     return (
         <div>
@@ -33,29 +41,17 @@ const App = () => {
 
             <hr/>
 
-            <List list={stories}/>
+            <List list={searchedStories}/>
         </div>
     );
 };
 
 const Search = (props) => {
-    //    [state, state updater function] = React."react hook function"(initial state)
-    const [searchTerm, setSearchTerm] = React.useState('');
-    const handleChange = (event) => {
-        // value of target (here: input HTML element)
-        setSearchTerm(event.target.value);
-        props.onSearch(event);
-    };
-
 
     return (
         <div>
             <label htmlFor="search">Search: </label>
-            <input id="search" type="text" onChange={handleChange}/>
-
-            <p>
-                Searching For <strong>{searchTerm}</strong>
-            </p>
+            <input id="search" type="text" onChange={props.onSearch}/>
         </div>
     );
 };
