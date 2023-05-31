@@ -38,27 +38,30 @@ const App = () => {
         <>
             <h1>My Hacker Stories</h1>
 
-            <Search search={searchTerm} onSearch={handleSearch}/>
-
+            <InputWithLabel
+                id="search"
+                label="Search"
+                value={searchTerm}
+                onInputChange={handleSearch}
+            />
             <hr/>
 
             <List list={searchedStories}/>
         </>
     );
 };
-
-const Search = ({search, onSearch}) => {
-    return (
-        <>
-            <label htmlFor="search">Search: </label>
-
-            <input id="search" type="text"
-                   onChange={onSearch}
-                   value={search}
-            />
-        </>
-    );
-};
+const InputWithLabel = ({id, label, value,type='text', onInputChange}) => (
+    <>
+        <label htmlFor={id}>{label}</label>
+        &nbsp;
+        <input
+            id={id}
+            type={type}
+            value={value}
+            onChange={onInputChange}
+        />
+    </>
+)
 
 const List = ({list}) => (
     <ul>
@@ -87,7 +90,7 @@ const useStorageState = (key, initialState) => {
 
     React.useEffect(() => {
             localStorage.setItem(key, value);
-        }, [value,key]
+        }, [value, key]
     );
 
     return [value, setValue];
