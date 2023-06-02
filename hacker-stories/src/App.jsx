@@ -19,10 +19,23 @@ const initialStories = [
         objectID: 1,
     },
 ]
+
+const getAsyncStories = () =>
+    new Promise((resolve) =>
+        setTimeout( () => resolve({data: {stories: initialStories}}), 3000)
+    );
+
+
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
-    const [stories, setStories] = React.useState(initialStories);
+    const [stories, setStories] = React.useState([]);
+
+    React.useEffect(() => {
+        getAsyncStories().then(result => {
+            setStories(result.data.stories);
+        })
+    }, []);
 
     const handleRemoveStory = (item) => {
         const newStories = stories.filter(
@@ -105,10 +118,10 @@ const Item = ({item, onRemoveItem}) => {
         <span>
             <a href={item.url}>{item.title}</a> --
         </span>
-        <span>  {item.author}</span>
-        <span>  {item.num_comments}</span>
-        <span>  {item.points}</span>
-        <span>
+            <span>  {item.author}</span>
+            <span>  {item.num_comments}</span>
+            <span>  {item.points}</span>
+            <span>
             <button type="button" onClick={handleRemoveItem}>
             Dismiss
             </button>
