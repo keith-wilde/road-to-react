@@ -20,38 +20,62 @@ const initialStories = [
     },
 ]
 
+const storiesReducer = (state, action) => {
+    console.log("ACTION:  " + action.type)
+    if (action.type === 'SET_STORIES') {
+        return action.payload;
+    } else if (action.type === 'REMOVE_STORY') {
+        return state.filter(
+            (story) => action.payload.objectID !== story.objectID
+        )
+    } else {
+        throw new Error("REDUCER ERROR");
+    }
+};
+
 const getAsyncStories = () =>
     new Promise((resolve) =>
-        setTimeout(() => resolve({data: {stories: initialStories}}), 3000)
+        setTimeout(
+            () => resolve({data: {stories: initialStories}}),
+            2000
+        )
     );
-
 
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
-    const [stories, setStories] = React.useState([]);
+    const [stories, dispatchStories] = React.useReducer(
+        storiesReducer,
+        []
+    );
     const [isLoading, setIsLoading] = React.useState(false);
     const [isError, setIsError] = React.useState(false);
 
-
     React.useEffect(() => {
         setIsLoading(true);
-        getAsyncStories().then(result => {
-            setStories(result.data.stories);
-            setIsLoading(false);
-        }).catch(() => setIsError(true));
+
+        getAsyncStories()
+            .then((result) => {
+                dispatchStories({
+                    type: 'SET_STORIES',
+                    payload: result.data.stories,
+                });
+                setIsLoading(false);
+            })
+            .catch(() => setIsError(true));
     }, []);
 
+
     const handleRemoveStory = (item) => {
-        const newStories = stories.filter(
-            (story) => item.objectID !== story.objectID
-        );
-        setStories(newStories);
-    }
+        dispatchStories({
+            type: 'REMOVE_STORY',
+            payload: item,
+        });
+    };
+
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
-        localStorage.setItem('search', event.target.value);
-    }
+    };
 
 
     const searchedStories = stories.filter(function (story) {
