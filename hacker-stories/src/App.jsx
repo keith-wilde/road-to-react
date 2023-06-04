@@ -43,9 +43,11 @@ const App = () => {
     );
 
     React.useEffect(() => {
+        if(!searchTerm) return;
+
         dispatchStories({type: "STORIES_FETCH_INIT"});
 
-        fetch(`${API_ENDPOINT}react`)
+        fetch(`${API_ENDPOINT}${searchTerm}`)
             .then((response) => response.json())
             .then((result) => {
                 // console.log("RESULT : " + result.toJSON())
@@ -57,7 +59,7 @@ const App = () => {
             .catch(() => {
                 dispatchStories({type: "STORIES_FETCH_FAILURE"})
             });
-    }, []);
+    }, [searchTerm]);
 
 
     const handleRemoveStory = (item) => {
@@ -70,14 +72,6 @@ const App = () => {
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
-
-    console.log(stories);
-
-    const searchedStories = stories.data.filter(function (story) {
-        return story.title.toLowerCase().includes(searchTerm.toLowerCase())                     // TODO, improve this if not done in tutorial
-            || story.url.toLowerCase().includes(searchTerm.toLowerCase())
-            || story.author.toLowerCase().includes(searchTerm.toLowerCase());
-    })
 
 
     return (
@@ -98,7 +92,7 @@ const App = () => {
             {stories.isLoading ? (
                 <p>loading...</p>
             ) : (
-                <List list={searchedStories} onRemoveItem={handleRemoveStory}/>
+                <List list={stories.data} onRemoveItem={handleRemoveStory}/>
             )
             }
         </>
