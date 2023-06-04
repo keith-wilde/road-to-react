@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query='
+const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 const storiesReducer = (state, action) => {
     switch (action.type) {
         case 'STORIES_FETCH_INIT':
@@ -45,7 +45,7 @@ const App = () => {
     React.useEffect(() => {
         dispatchStories({type: "STORIES_FETCH_INIT"});
 
-        fetch(`${API_ENDPOINT}fail`)
+        fetch(`${API_ENDPOINT}react`)
             .then((response) => response.json())
             .then((result) => {
                 // console.log("RESULT : " + result.toJSON())
@@ -53,9 +53,6 @@ const App = () => {
                     type: 'STORIES_FETCH_SUCCESS',
                     payload: result.hits
                 })
-            })
-            .catch(() => {
-                dispatchStories({type: 'STORIES_FETCH_FAILURE'})
             })
             .catch(() => {
                 dispatchStories({type: "STORIES_FETCH_FAILURE"})
