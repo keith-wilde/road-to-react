@@ -1,2 +1,2 @@
 ### Purpose
-Put random useful things I learn from book in here
+Simple react app using to learn entire development and deploy process 
