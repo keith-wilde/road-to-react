@@ -1,21 +1,27 @@
 import * as React from "react";
 import styled from "styled-components";
+import {Story} from "./types/Story";
 
-const Item = ({item, onRemoveItem}) => {
+type ItemProps = {
+    item: Story;
+    onRemoveItem: (item: Story) => void;
+}
+const Item = ({item, onRemoveItem}: ItemProps) => {
     const handleRemoveItem = () => {
         onRemoveItem(item);
     };
+
     return (
         <StyledItem>
-        <StyledColumn>
-            <a href={item.url}>{item.title}</a> --
-        </StyledColumn>
+            <StyledColumn>
+                <a href={item.url}>{item.title}</a> --
+            </StyledColumn>
             <StyledColumn width="%30">  {item.author}</StyledColumn>
             <StyledColumn width="%10">  {item.num_comments}</StyledColumn>
             <StyledColumn width="%10">  {item.points}</StyledColumn>
 
             <StyledButtonSmall type="button" onClick={handleRemoveItem}>
-            Dismiss
+                Dismiss
             </StyledButtonSmall>
 
         </StyledItem>
@@ -54,7 +60,7 @@ const StyledButton = styled.button`
   &:hover {
     background: #171212;
     color: #ffffff;
-    
+
   }
 `;
 

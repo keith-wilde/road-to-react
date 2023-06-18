@@ -5,24 +5,6 @@ import styled from "styled-components";
 
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
-const StyledContainer = styled.div`
-  height: 100vw;
-  padding: 20px;
-
-  background: #83a4d4;
-  background: linear-gradient(to left, #b6fbff, #83a4d4);
-
-  color: #171212;
-
-`;
-
-const StyledHeadlinePrimary = styled.h1`
-  font-size: 48px;
-  font-weight: 300;
-  letter-spacing: 2px;
-
-`;
-
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
@@ -134,6 +116,22 @@ const storiesReducer = (state, action) => {
             throw new Error();
     }
 };
+const StyledContainer = styled.div`
+  height: 100vw;
+  padding: 20px;
 
+  background: #83a4d4;
+  background: linear-gradient(to left, #b6fbff, #83a4d4);
+
+  color: #171212;
+
+`;
+
+const StyledHeadlinePrimary = styled.h1`
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 2px;
+
+`;
 
 export default App;
