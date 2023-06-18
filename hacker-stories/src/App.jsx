@@ -1,9 +1,27 @@
 import * as React from 'react';
 import InputWithLabel from "./InputWithLabel.jsx";
 import List from "./List.jsx";
+import styled from "styled-components";
 
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
+const StyledContainer = styled.div`
+  height: 100vw;
+  padding: 20px;
+
+  background: #83a4d4;
+  background: linear-gradient(to left, #b6fbff, #83a4d4);
+
+  color: #171212;
+
+`;
+
+const StyledHeadlinePrimary = styled.h1`
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 2px;
+
+`;
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
@@ -47,8 +65,8 @@ const App = () => {
 
 
     return (
-        <>
-            <h1>My Hacker Stories</h1>
+        <StyledContainer>
+            <StyledHeadlinePrimary>My Hacker Stories</StyledHeadlinePrimary>
 
             <InputWithLabel
                 id="search"
@@ -67,7 +85,7 @@ const App = () => {
                 <List list={stories.data} onRemoveItem={handleRemoveStory}/>
             )
             }
-        </>
+        </StyledContainer>
     );
 };
 
