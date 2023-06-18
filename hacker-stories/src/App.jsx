@@ -22,6 +22,7 @@ const StyledHeadlinePrimary = styled.h1`
   letter-spacing: 2px;
 
 `;
+
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
@@ -33,7 +34,7 @@ const App = () => {
     const handleFetchStories = React.useCallback(() => {
         if (!searchTerm) return;
 
-        dispatchStories({ type: 'STORIES_FETCH_INIT' });
+        dispatchStories({type: 'STORIES_FETCH_INIT'});
 
         fetch(`${API_ENDPOINT}${searchTerm}`)
             .then((response) => response.json())
@@ -44,7 +45,7 @@ const App = () => {
                 });
             })
             .catch(() =>
-                dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
+                dispatchStories({type: 'STORIES_FETCH_FAILURE'})
             );
     }, [searchTerm]);
 
