@@ -1,4 +1,4 @@
-import Item from "./Item.jsx";
+import Item from "./Item.tsx";
 import * as React from "react";
 
 const List = ({list, onRemoveItem}) => (

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import InputWithLabel from "./InputWithLabel.jsx";
-import List from "./List.jsx";
+import InputWithLabel from "./InputWithLabel";
+import List from "./List";
 import styled from "styled-components";
 
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
