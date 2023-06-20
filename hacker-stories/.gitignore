@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# May not want to do this outside dev environment
+package-lock.json
